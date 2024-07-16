@@ -4,7 +4,7 @@ import { useContext } from "react";
 import WordDetails from "../WordDetails/WordDetails";
 import WordList from "../WordList/WordList";
 
-const Dashboard = ({}) => {
+const Dashboard = () => {
     const user = useContext(AuthedUserContext);
     return (
         <main>

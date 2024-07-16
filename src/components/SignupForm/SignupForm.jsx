@@ -6,6 +6,7 @@ const SignupForm = (props) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState([""]);
     const [formData, setFormData] = useState({
+        email: "",
         username: "",
         password: "",
         passwordConf: "",
@@ -30,10 +31,10 @@ const SignupForm = (props) => {
         }
     };
 
-    const { username, password, passwordConf } = formData;
+    const { email, username, password, passwordConf } = formData;
 
     const isFormInvalid = () => {
-        return !(username && password && password === passwordConf);
+        return !(email && username && password && password === passwordConf);
     };
 
     return (
@@ -41,6 +42,16 @@ const SignupForm = (props) => {
             <h1>Sign Up</h1>
             <p>{message}</p>
             <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        name="email"
+                        onChange={handleChange}
+                    />
+                </div>
                 <div>
                     <label htmlFor="username">Username:</label>
                     <input

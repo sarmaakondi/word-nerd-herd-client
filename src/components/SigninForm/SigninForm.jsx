@@ -6,7 +6,7 @@ const SigninForm = (props) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState([""]);
     const [formData, setFormData] = useState({
-        username: "",
+        email: "",
         password: "",
     });
 
@@ -23,7 +23,6 @@ const SigninForm = (props) => {
         e.preventDefault();
         try {
             const user = await authService.signin(formData);
-            console.log(user);
             props.setUser(user);
             navigate("/");
         } catch (err) {
@@ -37,13 +36,13 @@ const SigninForm = (props) => {
             <p>{message}</p>
             <form autoComplete="off" onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="email">Username:</label>
+                    <label htmlFor="email">Email:</label>
                     <input
                         type="text"
                         autoComplete="off"
-                        id="username"
-                        value={formData.username}
-                        name="username"
+                        id="email"
+                        value={formData.email}
+                        name="email"
                         onChange={handleChange}
                     />
                 </div>
