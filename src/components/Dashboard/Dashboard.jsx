@@ -7,17 +7,17 @@ import * as wordService from "../../services/wordService";
 
 const Dashboard = () => {
     const user = useContext(AuthedUserContext);
-    const [wordList, setWordList] = useState([]);
+    const [wordList, setWordList] = useState({
+        words: [],
+        count: 0,
+    });
 
     useEffect(() => {
         const fetchWordList = async () => {
             const wordList = await wordService.index();
-            // const temp = wordList.words.map((word) => word.word);
-            // console.log(temp);
             setWordList(wordList);
         };
         fetchWordList();
-        console.log(wordList);
     }, []);
 
     return (
