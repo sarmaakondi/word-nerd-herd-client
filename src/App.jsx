@@ -22,6 +22,7 @@ const App = () => {
                 <NavBar user={user} handleSignout={handleSignout} />
                 <Routes>
                     <Route path="/" element={<Dashboard user={user} />} />
+
                     <Route
                         path="/signup"
                         element={<SignupForm setUser={setUser} />}
