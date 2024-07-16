@@ -21,11 +21,13 @@ const helperFunction = async (id) => {
 };
 
 const index = async () => {
-    helperFunction(null);
+    const response = await helperFunction(null);
+    return response;
 };
 
 const show = async (id) => {
-    helperFunction(id);
+    const response = await helperFunction(id);
+    return response;
 };
 
 export { index, show };

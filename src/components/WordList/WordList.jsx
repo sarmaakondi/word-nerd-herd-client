@@ -1,5 +1,15 @@
-const WordList = () => {
-    return <h1>Word List coming soon</h1>;
+const WordList = ({ wordList }) => {
+    console.log(wordList);
+    // const wordListItems = {wordList.words.map((item) => (
+    //     <li key={item._id}>{item.word}</li>
+    // ))};
+    return (
+        <ul>
+            {wordList.words.map((item) => (
+                <li key={item._id}>{item.word}</li>
+            ))}
+        </ul>
+    );
 };
 
 export default WordList;
