@@ -13,11 +13,24 @@ const Dashboard = ({ category }) => {
         words: [],
         count: 0,
     });
+
     const [learnedWord, setLearnedWord] = useState(false);
+    const [favoritedWord, setFavoritedWord] = useState(false);
 
     const handleLearnedWord = async (wordId) => {
         await wordService.create(wordId);
         setLearnedWord(true);
+    };
+
+    const handleFavoritedWord = async (wordId, isFavorited) => {
+        if (isFavorited === undefined) {
+            console.log(favoritedWord)
+            await wordService.createFavoriteWord(wordId);
+            setFavoritedWord(!favoritedWord);
+        } else {
+            await wordService.deleteFavoriteWord(wordId);
+            setFavoritedWord(!favoritedWord);
+        }
     };
 
     useEffect(() => {
@@ -26,7 +39,7 @@ const Dashboard = ({ category }) => {
             setWordList(wordList);
         };
         if (category) fetchWordList();
-    }, [category, learnedWord]);
+    }, [category, learnedWord, favoritedWord]);
 
     return (
         <main>
@@ -34,13 +47,26 @@ const Dashboard = ({ category }) => {
                 <Routes>
                     <Route
                         path="/words/auth/user"
-                        element={<WordList wordList={wordList} />}></Route>
+                        element={
+                            <WordList
+                                wordList={wordList}
+                                handleFavoritedWord={handleFavoritedWord}
+                            />
+                        }
+                    ></Route>
                     <Route
                         path="/learnedWords"
-                        element={<WordList wordList={wordList} />}></Route>
+                        element={<WordList wordList={wordList} />}
+                    ></Route>
                     <Route
                         path="/favoritedWords"
-                        element={<WordList wordList={wordList} />}></Route>
+                        element={
+                            <WordList
+                                wordList={wordList}
+                                handleFavoritedWord={handleFavoritedWord}
+                            />
+                        }
+                    ></Route>
                     <Route
                         path="/words/:wordId"
                         element={
@@ -48,16 +74,19 @@ const Dashboard = ({ category }) => {
                                 wordList={wordList}
                                 handleLearnedWord={handleLearnedWord}
                             />
-                        }></Route>
+                        }
+                    ></Route>
                 </Routes>
             ) : (
                 <Routes>
                     <Route
                         path="/words"
-                        element={<WordList wordList={wordList} />}></Route>
+                        element={<WordList wordList={wordList} />}
+                    ></Route>
                     <Route
                         path="/words/:wordId"
-                        element={<WordDetails wordList={wordList} />}></Route>
+                        element={<WordDetails wordList={wordList} />}
+                    ></Route>
                 </Routes>
             )}
         </main>

@@ -42,4 +42,34 @@ const create = async (id) => {
     }
 };
 
-export { index, show, create };
+const createFavoriteWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/favoritedWords" + "/" + id, {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const deleteFavoriteWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/favoritedWords" + "/" + id, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+}; 
+
+export { index, show, create, createFavoriteWord, deleteFavoriteWord };
