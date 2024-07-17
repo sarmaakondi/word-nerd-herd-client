@@ -27,7 +27,13 @@ const Dashboard = ({ category }) => {
             {user ? (
                 <Routes>
                     <Route
-                        path="/*"
+                        path="/words"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/learnedWords"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/favoritedWords"
                         element={<WordList wordList={wordList} />}></Route>
                     <Route
                         path="/words/:wordId"

@@ -10,11 +10,13 @@ export const AuthedUserContext = createContext(null);
 
 const App = () => {
     const [user, setUser] = useState(authService.getUser()); // using the method from authservice
-    const [category, setCategory] = useState("/words");
+    const [category, setCategory] = useState(
+        localStorage.getItem("category") || "/words"
+    );
 
     const handleCategory = (updatedCategory) => {
-        setCategory("");
         setCategory(updatedCategory);
+        localStorage.setItem("category", updatedCategory);
     };
 
     const handleSignout = () => {
