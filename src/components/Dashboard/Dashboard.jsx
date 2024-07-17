@@ -7,7 +7,7 @@ import WordDetails from "../WordDetails/WordDetails";
 
 import * as wordService from "../../services/wordService";
 
-const Dashboard = () => {
+const Dashboard = ({ category }) => {
     const user = useContext(AuthedUserContext);
     const [wordList, setWordList] = useState({
         words: [],
@@ -16,22 +16,33 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchWordList = async () => {
-            const wordList = await wordService.index();
+            const wordList = await wordService.index(category);
             setWordList(wordList);
         };
-        fetchWordList();
-    }, []);
+        if (category) fetchWordList();
+    }, [category]);
 
     return (
         <main>
-            <Routes>
-                <Route
-                    path="/words"
-                    element={<WordList wordList={wordList} />}></Route>
-                <Route
-                    path="/words/:wordId"
-                    element={<WordDetails wordList={wordList} />}></Route>
-            </Routes>
+            {user ? (
+                <Routes>
+                    <Route
+                        path="/*"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/words/:wordId"
+                        element={<WordDetails wordList={wordList} />}></Route>
+                </Routes>
+            ) : (
+                <Routes>
+                    <Route
+                        path="/words"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/words/:wordId"
+                        element={<WordDetails wordList={wordList} />}></Route>
+                </Routes>
+            )}
         </main>
     );
 };

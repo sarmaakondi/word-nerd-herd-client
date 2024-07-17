@@ -10,6 +10,12 @@ export const AuthedUserContext = createContext(null);
 
 const App = () => {
     const [user, setUser] = useState(authService.getUser()); // using the method from authservice
+    const [category, setCategory] = useState("/words");
+
+    const handleCategory = (updatedCategory) => {
+        setCategory("");
+        setCategory(updatedCategory);
+    };
 
     const handleSignout = () => {
         authService.signout();
@@ -19,9 +25,16 @@ const App = () => {
     return (
         <>
             <AuthedUserContext.Provider value={user}>
-                <NavBar user={user} handleSignout={handleSignout} />
+                <NavBar
+                    user={user}
+                    handleSignout={handleSignout}
+                    handleCategory={handleCategory}
+                />
                 <Routes>
-                    <Route path="*" element={<Dashboard user={user} />} />
+                    <Route
+                        path="*"
+                        element={<Dashboard user={user} category={category} />}
+                    />
 
                     <Route
                         path="/signup"

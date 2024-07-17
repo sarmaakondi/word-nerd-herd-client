@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
-const NavBar = ({ handleSignout }) => {
+const appendObject = {
+    "/words": "",
+    "/learnedWords": "/words",
+    "/favoritedWords": "/words",
+};
+
+const NavBar = ({ handleSignout, handleCategory }) => {
     const user = useContext(AuthedUserContext);
     return (
         <>
@@ -11,7 +17,51 @@ const NavBar = ({ handleSignout }) => {
                     <ul>
                         <li>Welcome, {user.username}</li>
                         <li>
-                            <Link to="/words">Learn Words</Link>
+                            <Link
+                                to="/words"
+                                onClick={(event) =>
+                                    handleCategory(
+                                        event.currentTarget.getAttribute("href")
+                                    )
+                                }>
+                                Learn New Words
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/learnedWords"
+                                onClick={(event) =>
+                                    handleCategory(
+                                        event.currentTarget.getAttribute(
+                                            "href"
+                                        ) +
+                                            appendObject[
+                                                event.currentTarget.getAttribute(
+                                                    "href"
+                                                )
+                                            ]
+                                    )
+                                }>
+                                Explore Learned Words
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/favoritedWords"
+                                onClick={(event) =>
+                                    handleCategory(
+                                        event.currentTarget.getAttribute(
+                                            "href"
+                                        ) +
+                                            appendObject[
+                                                event.currentTarget.getAttribute(
+                                                    "href"
+                                                )
+                                            ]
+                                    )
+                                }>
+                                Explore Favorited Words
+                            </Link>
                         </li>
                         <li>
                             <Link to="" onClick={handleSignout}>
@@ -28,6 +78,17 @@ const NavBar = ({ handleSignout }) => {
                         </li>
                         <li>
                             <Link to="/signup">Sign Up</Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/words"
+                                onClick={(event) =>
+                                    handleCategory(
+                                        event.currentTarget.getAttribute("href")
+                                    )
+                                }>
+                                Learn New Words
+                            </Link>
                         </li>
                     </ul>
                 </nav>
