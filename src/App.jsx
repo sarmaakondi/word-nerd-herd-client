@@ -21,7 +21,7 @@ const App = () => {
             <AuthedUserContext.Provider value={user}>
                 <NavBar user={user} handleSignout={handleSignout} />
                 <Routes>
-                    <Route path="/" element={<Dashboard user={user} />} />
+                    <Route path="*" element={<Dashboard user={user} />} />
 
                     <Route
                         path="/signup"
