@@ -18,7 +18,7 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                         <li>Welcome, {user.username}</li>
                         <li>
                             <Link
-                                to="/words"
+                                to="/words/auth/user"
                                 onClick={(event) =>
                                     handleCategory(
                                         event.currentTarget.getAttribute("href")

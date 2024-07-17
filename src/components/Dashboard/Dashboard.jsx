@@ -13,6 +13,12 @@ const Dashboard = ({ category }) => {
         words: [],
         count: 0,
     });
+    const [learnedWord, setLearnedWord] = useState(false);
+
+    const handleLearnedWord = async (wordId) => {
+        await wordService.create(wordId);
+        setLearnedWord(true);
+    };
 
     useEffect(() => {
         const fetchWordList = async () => {
@@ -20,14 +26,14 @@ const Dashboard = ({ category }) => {
             setWordList(wordList);
         };
         if (category) fetchWordList();
-    }, [category]);
+    }, [category, learnedWord]);
 
     return (
         <main>
             {user ? (
                 <Routes>
                     <Route
-                        path="/words"
+                        path="/words/auth/user"
                         element={<WordList wordList={wordList} />}></Route>
                     <Route
                         path="/learnedWords"
@@ -37,7 +43,12 @@ const Dashboard = ({ category }) => {
                         element={<WordList wordList={wordList} />}></Route>
                     <Route
                         path="/words/:wordId"
-                        element={<WordDetails wordList={wordList} />}></Route>
+                        element={
+                            <WordDetails
+                                wordList={wordList}
+                                handleLearnedWord={handleLearnedWord}
+                            />
+                        }></Route>
                 </Routes>
             ) : (
                 <Routes>

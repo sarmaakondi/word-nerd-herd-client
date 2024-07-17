@@ -27,4 +27,19 @@ const show = async (id) => {
     return response;
 };
 
-export { index, show };
+const create = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/learnedWords" + "/" + id, {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export { index, show, create };
