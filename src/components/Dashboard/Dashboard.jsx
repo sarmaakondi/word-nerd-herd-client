@@ -1,17 +1,56 @@
-import { AuthedUserContext } from '../../App';
-import { useContext } from 'react';
+import { AuthedUserContext } from "../../App";
+import { useContext, useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
-const Dashboard = ({}) => {
-  const user = useContext(AuthedUserContext);
-  return (
-    <main>
-      <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you, and only you, can see a dashboard
-        of all of your things.
-      </p>
-    </main>
-  );
+import WordList from "../WordList/WordList";
+import WordDetails from "../WordDetails/WordDetails";
+
+import * as wordService from "../../services/wordService";
+
+const Dashboard = ({ category }) => {
+    const user = useContext(AuthedUserContext);
+    const [wordList, setWordList] = useState({
+        words: [],
+        count: 0,
+    });
+
+    useEffect(() => {
+        const fetchWordList = async () => {
+            const wordList = await wordService.index(category);
+            setWordList(wordList);
+        };
+        if (category) fetchWordList();
+    }, [category]);
+
+    return (
+        <main>
+            {user ? (
+                <Routes>
+                    <Route
+                        path="/words"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/learnedWords"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/favoritedWords"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/words/:wordId"
+                        element={<WordDetails wordList={wordList} />}></Route>
+                </Routes>
+            ) : (
+                <Routes>
+                    <Route
+                        path="/words"
+                        element={<WordList wordList={wordList} />}></Route>
+                    <Route
+                        path="/words/:wordId"
+                        element={<WordDetails wordList={wordList} />}></Route>
+                </Routes>
+            )}
+        </main>
+    );
 };
 
 export default Dashboard;
