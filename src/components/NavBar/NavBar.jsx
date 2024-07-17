@@ -10,9 +10,9 @@ const NavBar = ({ handleSignout }) => {
                 <nav>
                     <ul>
                         <li>Welcome, {user.username}</li>
-                        {/* <li>
-                            <Link to="/">Dashboard</Link>
-                        </li> */}
+                        <li>
+                            <Link to="/words">Learn Words</Link>
+                        </li>
                         <li>
                             <Link to="" onClick={handleSignout}>
                                 Sign Out

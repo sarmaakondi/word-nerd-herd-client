@@ -26,11 +26,12 @@ const Dashboard = () => {
         <main>
             <Routes>
                 <Route
-                    path="/words/:id"
-                    element={<WordDetails wordList={wordList} />}
-                ></Route>
+                    path="/words"
+                    element={<WordList wordList={wordList} />}></Route>
+                <Route
+                    path="/words/:wordId"
+                    element={<WordDetails wordList={wordList} />}></Route>
             </Routes>
-            <WordList wordList={wordList} />
         </main>
     );
 };
