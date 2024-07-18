@@ -8,6 +8,13 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     const currentWordDetails = wordList.words.filter(
         (word) => word._id === wordId
     );
+
+    // Read Aloud
+    const readAloud = (word) => {
+        const message = new SpeechSynthesisUtterance(word);
+        speechSynthesis.speak(message);
+    };
+
     const wordListItems = currentWordDetails.map((item) => (
         <li key={item._id}>
             <>
@@ -24,7 +31,8 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
                         fontSize: "24px",
                         cursor: "pointer",
                     }}
-                    className="fa-solid fa-volume-low"></i>
+                    className="fa-solid fa-volume-low"
+                    onClick={() => readAloud(item.word)}></i>
                 <i
                     style={{
                         marginLeft: "20px",
