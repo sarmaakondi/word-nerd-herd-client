@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
+import "./WordDetails.css";
+
 const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     const user = useContext(AuthedUserContext);
     const { wordId } = useParams();

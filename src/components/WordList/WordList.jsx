@@ -70,32 +70,28 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
                                 zIndex: index,
                             }}
                             onClick={() => bringToFront(index)}>
-                            <div>
+                            <div className="wordlist-fav-container">
                                 <h2>{card.word}</h2>
-                                {user !== null && (
-                                    <i
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleFavoritedWord(card._id);
-                                        }}
-                                        style={{
-                                            marginLeft: "20px",
-                                            fontSize: "24px",
-                                            cursor: "pointer",
-                                        }}
-                                        className="fa-regular fa-heart"></i>
-                                )}
-                                <Link to={`/words/${card._id}`}>
-                                    <button
-                                        style={{ marginLeft: "20px" }}
-                                        onClick={(event) =>
-                                            handleClick(card._id, event)
-                                        }>
-                                        Learn More
-                                    </button>
-                                </Link>
-                                <p>{card.meaning}</p>
+                                <div className="wordlist-fav-child-container">
+                                    {user !== null && (
+                                        <i
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleFavoritedWord(card._id);
+                                            }}
+                                            className="fa-solid fa-heart"></i>
+                                    )}
+                                    <Link to={`/words/${card._id}`}>
+                                        <button
+                                            onClick={(event) =>
+                                                handleClick(card._id, event)
+                                            }>
+                                            Learn More
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
+                            <p>{card.meaning}</p>
                         </motion.div>
                     ))}
                 </AnimatePresence>
