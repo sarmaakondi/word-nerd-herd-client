@@ -9,7 +9,7 @@ const NavBar = ({ handleSignout, handleCategory }) => {
     const navigate = useNavigate();
 
     return (
-        <>
+        <div className="navbar-container">
             {user ? (
                 <nav>
                     <ul>
@@ -56,7 +56,7 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                     </ul>
                 </nav>
             )}
-        </>
+        </div>
     );
 };
 export default NavBar;
