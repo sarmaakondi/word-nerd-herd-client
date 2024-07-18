@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
@@ -6,6 +6,8 @@ import "./NavBar.css";
 
 const NavBar = ({ handleSignout, handleCategory }) => {
     const user = useContext(AuthedUserContext);
+    const navigate = useNavigate();
+
     return (
         <>
             {user ? (
@@ -18,6 +20,9 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                                     {user.username[0].toUpperCase() +
                                         user.username.slice(1).toLowerCase()}
                                     {" 👋"}
+                                </li>
+                                <li onClick={() => navigate(-1)}>
+                                    <i className="fa-solid fa-arrow-left"></i>
                                 </li>
                                 <li className="navbar-signout">
                                     <Link to="" onClick={handleSignout}>

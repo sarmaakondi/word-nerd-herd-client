@@ -29,7 +29,16 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
     };
 
     return (
-        <div className="container">
+        <div className="wordlist-container">
+            <div className="dashboard-statistics dashboard-card user-progress">
+                <li>
+                    {location.pathname.includes("/words")
+                        ? "Learn New Words"
+                        : location.pathname.includes("learnedWords")
+                        ? "Learned Words"
+                        : "Favortied Words"}
+                </li>
+            </div>
             <div
                 className="card-stack"
                 style={{ position: "relative", height: "500px" }}>
@@ -42,15 +51,15 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
                             }`}
                             initial={{
                                 scale: 0.8,
-                                y: 30 * (cards.length - index - 1),
+                                y: 40 * (cards.length - index - 1),
                             }}
                             animate={{
                                 scale: 1,
-                                y: 30 * (cards.length - index - 1),
+                                y: 40 * (cards.length - index - 1),
                             }}
                             exit={{
                                 scale: 0.8,
-                                y: 30 * (cards.length - index - 1),
+                                y: 40 * (cards.length - index - 1),
                             }}
                             transition={{
                                 type: "spring",
