@@ -1,0 +1,48 @@
+.navbar-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 400px;
+    height: 70px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    padding: 12px;
+    font-size: 20px;
+
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.navbar-header {
+    display: flex;
+    justify-content: space-around;
+    color: #000;
+    text-align: center;
+    background-color: #fff;
+}
+
+.navbar-header a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-header li {
+    list-style: none;
+}
+
+.navbar-user {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-signout {
+    transition: all 0.3s;
+}
+
+.navbar-signout:hover {
+    transform: scale(1.05);
+}

@@ -1,0 +1,63 @@
+.wordlist-card-stack {
+    position: relative;
+}
+
+.card {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: hsl(249, 57%, 58%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.card.active {
+    z-index: 3;
+}
+
+.card:not(.active) {
+    z-index: 2;
+    background-color: hsl(249, 37%, 53%);
+}
+
+.wordlist-fav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.wordlist-fav-child-container {
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fa-heart {
+    font-size: 28px;
+    transition: all 0.3s;
+}
+
+.fa-heart:hover {
+    transform: scale(1.1);
+}
+
+.wordlist-fav-child-container button {
+    font-family: inherit;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+.wordlist-fav-child-container button:hover {
+    transform: scale(1.05);
+}

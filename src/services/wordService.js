@@ -27,4 +27,85 @@ const show = async (id) => {
     return response;
 };
 
-export { index, show };
+const create = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/learnedWords" + "/" + id, {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const createFavoriteWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/favoritedWords" + "/" + id, {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const deleteFavoriteWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/favoritedWords" + "/" + id, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const checkFavoriteWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/favoritedWords" + "/" + id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const checkLearnedWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/learnedWords" + "/" + id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export {
+    index,
+    show,
+    create,
+    createFavoriteWord,
+    deleteFavoriteWord,
+    checkFavoriteWord,
+    checkLearnedWord,
+};
