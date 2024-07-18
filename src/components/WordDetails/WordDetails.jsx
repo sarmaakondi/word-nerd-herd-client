@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
+import "./WordDetails.css";
+
 const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     const user = useContext(AuthedUserContext);
     const { wordId } = useParams();
@@ -58,42 +60,44 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     const wordListItems = currentWordDetails.map((item) => (
         <li key={item._id}>
             <>
-                <h1>{item.word}</h1>
-                <h3>Meaning:</h3>
-                <p>{item.meaning}</p>
-                <h3>Examples:</h3>
-                {item.examples.map((example, index) => (
-                    <p key={index}>{example}</p>
-                ))}
-                <i
-                    style={{
-                        marginLeft: "20px",
-                        fontSize: "24px",
-                        cursor: "pointer",
-                    }}
-                    className="fa-solid fa-volume-low"
-                    onClick={() => readAloud(item.word)}></i>
-                <i
-                    style={{
-                        marginLeft: "20px",
-                        fontSize: "24px",
-                        cursor: "pointer",
-                    }}
-                    className="fa-solid fa-microphone"
-                    onClick={() => checkPronunciation(item.word)}></i>
-                {user !== null &&
-                item.isLearning === undefined &&
-                buttonState === 0 ? (
-                    <>
-                        <button
-                            onClick={() => handleLearnedWord(item._id)}
-                            style={{ marginLeft: "20px" }}>
-                            Mark as Learned
-                        </button>
-                    </>
-                ) : (
-                    ""
-                )}
+                <div className="word-details-card">
+                    <h1>{item.word}</h1>
+                    <h3>Meaning:</h3>
+                    <p>{item.meaning}</p>
+                    <h3>Examples:</h3>
+                    {item.examples.map((example, index) => (
+                        <p key={index}>{example}</p>
+                    ))}
+                    <i
+                        style={{
+                            marginLeft: "20px",
+                            fontSize: "24px",
+                            cursor: "pointer",
+                        }}
+                        className="fa-solid fa-volume-low"
+                        onClick={() => readAloud(item.word)}></i>
+                    <i
+                        style={{
+                            marginLeft: "20px",
+                            fontSize: "24px",
+                            cursor: "pointer",
+                        }}
+                        className="fa-solid fa-microphone"
+                        onClick={() => checkPronunciation(item.word)}></i>
+                    {user !== null &&
+                    item.isLearning === undefined &&
+                    buttonState === 0 ? (
+                        <>
+                            <button
+                                onClick={() => handleLearnedWord(item._id)}
+                                style={{ marginLeft: "20px" }}>
+                                Mark as Learned
+                            </button>
+                        </>
+                    ) : (
+                        ""
+                    )}
+                </div>
             </>
         </li>
     ));
