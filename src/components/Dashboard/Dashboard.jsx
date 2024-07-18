@@ -1,101 +1,74 @@
-import { AuthedUserContext } from "../../App";
-import { useContext, useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import WordList from "../WordList/WordList";
-import WordDetails from "../WordDetails/WordDetails";
+import "./Dashboard.css";
 
-import * as wordService from "../../services/wordService";
+const appendObject = {
+    "/words": "",
+    "/learnedWords": "/words",
+    "/favoritedWords": "/words",
+};
 
-const Dashboard = ({ category }) => {
-    const user = useContext(AuthedUserContext);
-    const [wordList, setWordList] = useState({
-        words: [],
-        count: 0,
-    });
-    const [learnedWord, setLearnedWord] = useState(false);
-    const [favoritedWord, setFavoritedWord] = useState(false);
-    const [buttonState, setButtonState] = useState(0);
-
-    const handleLearnedWord = async (wordId) => {
-        await wordService.create(wordId);
-        setLearnedWord(true);
+const Dashboard = ({ handleCategory }) => {
+    const handleClick = (event) => {
+        handleCategory(event.currentTarget.getAttribute("href"));
     };
-
-    const handleFavoritedWord = async (wordId) => {
-        const isFavorited = await wordService.checkFavoriteWord(wordId);
-        if (isFavorited.length === 0) {
-            await wordService.createFavoriteWord(wordId);
-            setFavoritedWord(!favoritedWord);
-        } else {
-            await wordService.deleteFavoriteWord(wordId);
-            setFavoritedWord(!favoritedWord);
-        }
-    };
-
-    const checkLearnedWord = async (wordId) => {
-        const isLearned = await wordService.checkLearnedWord(wordId);
-        setButtonState(isLearned.length);
-    };
-
-    useEffect(() => {
-        const fetchWordList = async () => {
-            const wordList = await wordService.index(category);
-            setWordList(wordList);
-        };
-        if (category) fetchWordList();
-    }, [category, learnedWord, favoritedWord]);
 
     return (
-        <main>
-            {user ? (
-                <Routes>
-                    <Route
-                        path="/words/auth/user"
-                        element={
-                            <WordList
-                                wordList={wordList}
-                                handleFavoritedWord={handleFavoritedWord}
-                            />
-                        }></Route>
-                    <Route
-                        path="/learnedWords"
-                        element={
-                            <WordList
-                                wordList={wordList}
-                                handleFavoritedWord={handleFavoritedWord}
-                            />
-                        }></Route>
-                    <Route
-                        path="/favoritedWords"
-                        element={
-                            <WordList
-                                wordList={wordList}
-                                handleFavoritedWord={handleFavoritedWord}
-                                checkLearnedWord={checkLearnedWord}
-                            />
-                        }></Route>
-                    <Route
-                        path="/words/:wordId"
-                        element={
-                            <WordDetails
-                                wordList={wordList}
-                                handleLearnedWord={handleLearnedWord}
-                                buttonState={buttonState}
-                            />
-                        }></Route>
-                </Routes>
-            ) : (
-                <Routes>
-                    <Route
-                        path="/words"
-                        element={<WordList wordList={wordList} />}></Route>
-                    <Route
-                        path="/words/:wordId"
-                        element={<WordDetails wordList={wordList} />}></Route>
-                </Routes>
-            )}
-        </main>
+        <nav>
+            <ul>
+                <div className="dashboard-statistics dashboard-card user-progress">
+                    <li>Your progress 📚</li>
+                </div>
+                <div className="dashboard-card">
+                    <li>
+                        <Link
+                            to="/words/auth/user"
+                            onClick={(event) => handleClick(event)}>
+                            Learn New Words
+                        </Link>
+                    </li>
+                    <li className="dashboard-word-stats">10 words</li>
+                </div>
+                <div className="dashboard-card">
+                    <li>
+                        <Link
+                            to="/learnedWords"
+                            onClick={(event) =>
+                                handleCategory(
+                                    event.currentTarget.getAttribute("href") +
+                                        appendObject[
+                                            event.currentTarget.getAttribute(
+                                                "href"
+                                            )
+                                        ]
+                                )
+                            }>
+                            Explore Learned Words
+                        </Link>
+                    </li>
+                    <li className="dashboard-word-stats">156 words</li>
+                </div>
+                <div className="dashboard-card">
+                    <li>
+                        <Link
+                            to="/favoritedWords"
+                            onClick={(event) =>
+                                handleCategory(
+                                    event.currentTarget.getAttribute("href") +
+                                        appendObject[
+                                            event.currentTarget.getAttribute(
+                                                "href"
+                                            )
+                                        ]
+                                )
+                            }>
+                            Explore Favorited Words
+                        </Link>
+                    </li>
+                    <li className="dashboard-word-stats">22 words</li>
+                </div>
+            </ul>
+        </nav>
     );
 };
 

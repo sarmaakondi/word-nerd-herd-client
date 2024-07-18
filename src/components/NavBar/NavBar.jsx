@@ -2,20 +2,9 @@ import { Link } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
-const appendObject = {
-    "/words": "",
-    "/learnedWords": "/words",
-    "/favoritedWords": "/words",
-};
+import "./NavBar.css";
 
 const NavBar = ({ handleSignout, handleCategory }) => {
-    const handleClick = (event) => {
-        document.querySelectorAll(".navbar-card").forEach((ele) => {
-            ele.classList.add("hide");
-        });
-        document.getElementById("header").classList.add("hide");
-        handleCategory(event.currentTarget.getAttribute("href"));
-    };
     const user = useContext(AuthedUserContext);
     return (
         <>
@@ -30,73 +19,12 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                                         user.username.slice(1).toLowerCase()}
                                     {" 👋"}
                                 </li>
-                                <li>
+                                <li className="navbar-signout">
                                     <Link to="" onClick={handleSignout}>
                                         Sign Out
                                     </Link>
                                 </li>
                             </div>
-                            <div>
-                                <li>Click any card to begin!</li>
-                            </div>
-                        </div>
-                        <div className="navbar-statistics">
-                            <li>Your statistics</li>
-                        </div>
-                        <div className="navbar-card">
-                            <li>
-                                <Link
-                                    to="/words/auth/user"
-                                    onClick={(event) => handleClick(event)}
-                                >
-                                    Learn New Words
-                                </Link>
-                            </li>
-                            <li className="navbar-word-stats">10 words</li>
-                        </div>
-                        <div className="navbar-card">
-                            <li>
-                                <Link
-                                    to="/learnedWords"
-                                    onClick={(event) =>
-                                        handleCategory(
-                                            event.currentTarget.getAttribute(
-                                                "href"
-                                            ) +
-                                                appendObject[
-                                                    event.currentTarget.getAttribute(
-                                                        "href"
-                                                    )
-                                                ]
-                                        )
-                                    }
-                                >
-                                    Explore Learned Words
-                                </Link>
-                            </li>
-                            <li className="navbar-word-stats">156 words</li>
-                        </div>
-                        <div className="navbar-card">
-                            <li>
-                                <Link
-                                    to="/favoritedWords"
-                                    onClick={(event) =>
-                                        handleCategory(
-                                            event.currentTarget.getAttribute(
-                                                "href"
-                                            ) +
-                                                appendObject[
-                                                    event.currentTarget.getAttribute(
-                                                        "href"
-                                                    )
-                                                ]
-                                        )
-                                    }
-                                >
-                                    Explore Favorited Words
-                                </Link>
-                            </li>
-                            <li className="navbar-word-stats">22 words</li>
                         </div>
                     </ul>
                 </nav>
@@ -116,8 +44,7 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                                     handleCategory(
                                         event.currentTarget.getAttribute("href")
                                     )
-                                }
-                            >
+                                }>
                                 Learn New Words
                             </Link>
                         </li>
