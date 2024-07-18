@@ -20,9 +20,8 @@ body {
     align-items: center;
     justify-content: center;
     min-width: 320px;
-    height: 100vh;
+    height: 75vh;
     background-color: #1a1a1a;
-    /* background-color: #131313; */
     color: white;
 }
 
@@ -45,13 +44,33 @@ a {
     border-radius: 16px;
     padding: 10px;
     font-size: 20px;
-    background-color: purple;
+    background-color: hsl(249, 57%, 58%);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.navbar-card:first-child {
+    cursor: auto;
+}
+
+.navbar-card:first-child:hover {
+    transform: translateY(0px);
+}
+
+.navbar-card:hover {
+    transform: translateY(-8px);
 }
 
 .navbar-header {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    justify-content: space-around;
+    color: #000;
+    text-align: center;
+    background-color: #fff;
+}
+
+.navbar-header a {
+    color: black;
 }
 
 .navbar-statistics {
@@ -61,25 +80,36 @@ a {
     padding: 10px;
 }
 
-.navbar-card:nth-child(5) {
-    z-index: 3;
-    position: absolute;
-    bottom: -220px;
-}
-
 .navbar-card:nth-child(4) {
     z-index: 2;
     position: absolute;
     bottom: -110px;
+    background-color: hwb(249 50% 14%);
+}
+
+.navbar-card:nth-child(5) {
+    z-index: 3;
+    position: absolute;
+    bottom: -220px;
+    background-color: #fff;
+}
+
+.navbar-card:nth-child(5) a {
+    color: #000;
 }
 
 nav {
     position: relative;
 }
 
-.nav-container {
-    height: 100vh;
+.navbar-word-stats {
+    background-color: #1a1a1a;
+    padding: 2px 12px;
+    border-radius: 16px;
+    width: fit-content;
+}
+
+.navbar-user {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
