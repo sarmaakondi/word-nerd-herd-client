@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
-const WordDetails = ({ wordList, handleLearnedWord }) => {
+const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     const user = useContext(AuthedUserContext);
     const { wordId } = useParams();
     const currentWordDetails = wordList.words.filter(
@@ -24,22 +24,21 @@ const WordDetails = ({ wordList, handleLearnedWord }) => {
                         fontSize: "24px",
                         cursor: "pointer",
                     }}
-                    className="fa-solid fa-volume-low"
-                ></i>
+                    className="fa-solid fa-volume-low"></i>
                 <i
                     style={{
                         marginLeft: "20px",
                         fontSize: "24px",
                         cursor: "pointer",
                     }}
-                    className="fa-solid fa-microphone"
-                ></i>
-                {user !== null && item.isLearning === undefined ? (
+                    className="fa-solid fa-microphone"></i>
+                {user !== null &&
+                item.isLearning === undefined &&
+                buttonState === 0 ? (
                     <>
                         <button
                             onClick={() => handleLearnedWord(item._id)}
-                            style={{ marginLeft: "20px" }}
-                        >
+                            style={{ marginLeft: "20px" }}>
                             Mark as Learned
                         </button>
                     </>

@@ -13,9 +13,9 @@ const Dashboard = ({ category }) => {
         words: [],
         count: 0,
     });
-
     const [learnedWord, setLearnedWord] = useState(false);
     const [favoritedWord, setFavoritedWord] = useState(false);
+    const [buttonState, setButtonState] = useState(0);
 
     const handleLearnedWord = async (wordId) => {
         await wordService.create(wordId);
@@ -31,6 +31,11 @@ const Dashboard = ({ category }) => {
             await wordService.deleteFavoriteWord(wordId);
             setFavoritedWord(!favoritedWord);
         }
+    };
+
+    const checkLearnedWord = async (wordId) => {
+        const isLearned = await wordService.checkLearnedWord(wordId);
+        setButtonState(isLearned.length);
     };
 
     useEffect(() => {
@@ -55,13 +60,19 @@ const Dashboard = ({ category }) => {
                         }></Route>
                     <Route
                         path="/learnedWords"
-                        element={<WordList wordList={wordList} />}></Route>
+                        element={
+                            <WordList
+                                wordList={wordList}
+                                handleFavoritedWord={handleFavoritedWord}
+                            />
+                        }></Route>
                     <Route
                         path="/favoritedWords"
                         element={
                             <WordList
                                 wordList={wordList}
                                 handleFavoritedWord={handleFavoritedWord}
+                                checkLearnedWord={checkLearnedWord}
                             />
                         }></Route>
                     <Route
@@ -70,6 +81,7 @@ const Dashboard = ({ category }) => {
                             <WordDetails
                                 wordList={wordList}
                                 handleLearnedWord={handleLearnedWord}
+                                buttonState={buttonState}
                             />
                         }></Route>
                 </Routes>

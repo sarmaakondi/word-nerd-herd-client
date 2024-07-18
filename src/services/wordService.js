@@ -86,6 +86,20 @@ const checkFavoriteWord = async (id) => {
     }
 };
 
+const checkLearnedWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/learnedWords" + "/" + id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     index,
     show,
@@ -93,4 +107,5 @@ export {
     createFavoriteWord,
     deleteFavoriteWord,
     checkFavoriteWord,
+    checkLearnedWord,
 };

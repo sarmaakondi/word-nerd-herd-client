@@ -1,9 +1,17 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 
-const WordList = ({ wordList, handleFavoritedWord }) => {
+const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
     const user = useContext(AuthedUserContext);
+    const location = useLocation();
+
+    const handleClick = (id) => {
+        if (location.pathname.includes("favoritedWords")) {
+            checkLearnedWord(id);
+        }
+    };
+
     const wordListItems = wordList.words.map((item) => (
         <li key={item._id}>
             <>
@@ -23,7 +31,11 @@ const WordList = ({ wordList, handleFavoritedWord }) => {
                     ""
                 )}
                 <Link to={`/words/${item._id}`}>
-                    <button style={{ marginLeft: "20px" }}>Learn More</button>
+                    <button
+                        style={{ marginLeft: "20px" }}
+                        onClick={() => handleClick(item._id)}>
+                        Learn More
+                    </button>
                 </Link>
                 <p>Meaning: {item.meaning}</p>
             </>
