@@ -46,3 +46,8 @@
 .navbar-signout:hover {
     transform: scale(1.05);
 }
+
+.navbar-container {
+    display: flex;
+    justify-content: center;
+}
