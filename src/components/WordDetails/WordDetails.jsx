@@ -15,6 +15,46 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
         speechSynthesis.speak(message);
     };
 
+    // Check Pronunciation
+    const checkPronunciation = (word) => {
+        let grammar;
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        const SpeechGrammarList =
+            window.SpeechGrammarList || window.webkitSpeechGrammarList;
+        const userPhrase = word.toLowerCase();
+        const recognition = new SpeechRecognition();
+        const speechRecognitionList = new SpeechGrammarList();
+
+        grammar =
+            "#JSGF V1.0; grammar phrase; public <phrase> = " + userPhrase + ";";
+
+        speechRecognitionList.addFromString(grammar, 1);
+        recognition.grammars = speechRecognitionList;
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const speechResult = event.results[0][0].transcript.toLowerCase();
+            if (speechResult === userPhrase) {
+                alert("I heard the correct phrase!");
+            } else {
+                alert("That didn't sound right.");
+            }
+        };
+
+        recognition.onspeechend = () => {
+            recognition.stop();
+        };
+
+        recognition.onerror = (event) => {
+            alert("Error occurred in recognition: " + event.error);
+        };
+    };
+
     const wordListItems = currentWordDetails.map((item) => (
         <li key={item._id}>
             <>
@@ -39,7 +79,8 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
                         fontSize: "24px",
                         cursor: "pointer",
                     }}
-                    className="fa-solid fa-microphone"></i>
+                    className="fa-solid fa-microphone"
+                    onClick={() => checkPronunciation(item.word)}></i>
                 {user !== null &&
                 item.isLearning === undefined &&
                 buttonState === 0 ? (
