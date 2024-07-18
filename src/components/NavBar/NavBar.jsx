@@ -9,6 +9,13 @@ const appendObject = {
 };
 
 const NavBar = ({ handleSignout, handleCategory }) => {
+    const handleClick = (event) => {
+        document.querySelectorAll(".navbar-card").forEach((ele) => {
+            ele.classList.add("hide");
+        });
+        document.getElementById("header").classList.add("hide");
+        handleCategory(event.currentTarget.getAttribute("href"));
+    };
     const user = useContext(AuthedUserContext);
     return (
         <>
@@ -40,13 +47,8 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                             <li>
                                 <Link
                                     to="/words/auth/user"
-                                    onClick={(event) =>
-                                        handleCategory(
-                                            event.currentTarget.getAttribute(
-                                                "href"
-                                            )
-                                        )
-                                    }>
+                                    onClick={(event) => handleClick(event)}
+                                >
                                     Learn New Words
                                 </Link>
                             </li>
@@ -67,7 +69,8 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                                                     )
                                                 ]
                                         )
-                                    }>
+                                    }
+                                >
                                     Explore Learned Words
                                 </Link>
                             </li>
@@ -88,7 +91,8 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                                                     )
                                                 ]
                                         )
-                                    }>
+                                    }
+                                >
                                     Explore Favorited Words
                                 </Link>
                             </li>
@@ -112,7 +116,8 @@ const NavBar = ({ handleSignout, handleCategory }) => {
                                     handleCategory(
                                         event.currentTarget.getAttribute("href")
                                     )
-                                }>
+                                }
+                            >
                                 Learn New Words
                             </Link>
                         </li>
