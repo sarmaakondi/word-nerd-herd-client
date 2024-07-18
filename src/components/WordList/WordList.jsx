@@ -1,47 +1,98 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
+import { motion, AnimatePresence } from "framer-motion";
+
+import "./WordList.css";
 
 const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
     const user = useContext(AuthedUserContext);
     const location = useLocation();
+    const [cards, setCards] = useState([]);
 
-    const handleClick = (id) => {
+    useEffect(() => {
+        setCards(wordList.words);
+    }, [wordList.words]);
+
+    const bringToFront = (index) => {
+        const newCards = [...cards];
+        const [selectedCard] = newCards.splice(index, 1);
+        newCards.push(selectedCard);
+        setCards(newCards);
+    };
+
+    const handleClick = (id, event) => {
+        event.stopPropagation();
         if (location.pathname.includes("favoritedWords")) {
             checkLearnedWord(id);
         }
     };
 
-    const wordListItems = wordList.words.map((item) => (
-        <li key={item._id}>
-            <>
-                {item.word}
-                {user !== null ? (
-                    <>
-                        <i
-                            onClick={() => handleFavoritedWord(item._id)}
-                            style={{
-                                marginLeft: "20px",
-                                fontSize: "24px",
-                                cursor: "pointer",
+    return (
+        <div className="container">
+            <div
+                className="card-stack"
+                style={{ position: "relative", height: "500px" }}>
+                <AnimatePresence initial={false}>
+                    {cards.map((card, index) => (
+                        <motion.div
+                            key={card._id}
+                            className={`card ${
+                                index === cards.length - 1 ? "active" : ""
+                            }`}
+                            initial={{
+                                scale: 0.8,
+                                y: 30 * (cards.length - index - 1),
                             }}
-                            className="fa-regular fa-heart"></i>
-                    </>
-                ) : (
-                    ""
-                )}
-                <Link to={`/words/${item._id}`}>
-                    <button
-                        style={{ marginLeft: "20px" }}
-                        onClick={() => handleClick(item._id)}>
-                        Learn More
-                    </button>
-                </Link>
-                <p>Meaning: {item.meaning}</p>
-            </>
-        </li>
-    ));
-    return <ul>{wordListItems}</ul>;
+                            animate={{
+                                scale: 1,
+                                y: 30 * (cards.length - index - 1),
+                            }}
+                            exit={{
+                                scale: 0.8,
+                                y: 30 * (cards.length - index - 1),
+                            }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 40,
+                            }}
+                            style={{
+                                zIndex: index,
+                            }}
+                            onClick={() => bringToFront(index)}>
+                            <div>
+                                <h2>{card.word}</h2>
+                                {user !== null && (
+                                    <i
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleFavoritedWord(card._id);
+                                        }}
+                                        style={{
+                                            marginLeft: "20px",
+                                            fontSize: "24px",
+                                            cursor: "pointer",
+                                        }}
+                                        className="fa-regular fa-heart"></i>
+                                )}
+                                <Link to={`/words/${card._id}`}>
+                                    <button
+                                        style={{ marginLeft: "20px" }}
+                                        onClick={(event) =>
+                                            handleClick(card._id, event)
+                                        }>
+                                        Learn More
+                                    </button>
+                                </Link>
+                                <p>{card.meaning}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+            </div>
+        </div>
+    );
 };
 
 export default WordList;

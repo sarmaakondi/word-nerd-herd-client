@@ -1,0 +1,30 @@
+.wordlist-container {
+    position: relative;
+    width: 300px;
+}
+
+.wordlist-card-stack {
+    position: relative;
+}
+
+.card {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: hsl(249, 57%, 58%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.card.active {
+    z-index: 3;
+}
+
+.card:not(.active) {
+    z-index: 2;
+    background-color: hsl(249, 37%, 53%);
+}
