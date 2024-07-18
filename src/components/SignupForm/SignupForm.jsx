@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as authService from "../../services/authService";
 
+import "./SignupForm.css";
+
 const SignupForm = (props) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState([""]);
@@ -33,59 +35,59 @@ const SignupForm = (props) => {
 
     const { email, username, password, passwordConf } = formData;
 
-    const isFormInvalid = () => {
-        return !(email && username && password && password === passwordConf);
-    };
-
     return (
-        <main>
+        <main className="signup-container">
             <h1>Sign Up</h1>
             <p>{message}</p>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email:</label>
+            <form autoComplete="off" onSubmit={handleSubmit}>
+                <div className="signup-form-fields">
+                    <label htmlFor="email">Email</label>
                     <input
                         type="email"
                         id="email"
                         value={email}
                         name="email"
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div>
-                    <label htmlFor="username">Username:</label>
+                <div className="signup-form-fields">
+                    <label htmlFor="username">Username</label>
                     <input
                         type="text"
                         id="name"
                         value={username}
                         name="username"
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
+                <div className="signup-form-fields">
+                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         id="password"
                         value={password}
                         name="password"
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div>
-                    <label htmlFor="confirm">Confirm Password:</label>
+                <div className="signup-form-fields">
+                    <label htmlFor="confirm">Confirm Password</label>
                     <input
                         type="password"
                         id="confirm"
                         value={passwordConf}
                         name="passwordConf"
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div>
-                    <button disabled={isFormInvalid()}>Sign Up</button>
+                <div className="signup-form-buttons">
+                    <button className="signup-form-signup">Sign Up</button>
                     <Link to="/">
-                        <button>Cancel</button>
+                        <button className="signup-form-cancel">Cancel</button>
                     </Link>
                 </div>
             </form>

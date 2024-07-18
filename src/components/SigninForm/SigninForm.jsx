@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as authService from "../../services/authService";
 
+import "./SigninForm.css";
+
 const SigninForm = (props) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState([""]);
@@ -24,19 +26,19 @@ const SigninForm = (props) => {
         try {
             const user = await authService.signin(formData);
             props.setUser(user);
-            navigate("/");
+            navigate("/dashboard");
         } catch (err) {
             updateMessage(err.message);
         }
     };
 
     return (
-        <main>
+        <main className="signin-container">
             <h1>Log In</h1>
             <p>{message}</p>
             <form autoComplete="off" onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email:</label>
+                <div className="signin-form-fields">
+                    <label htmlFor="email">Email</label>
                     <input
                         type="text"
                         autoComplete="off"
@@ -44,10 +46,11 @@ const SigninForm = (props) => {
                         value={formData.email}
                         name="email"
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
+                <div className="signin-form-fields">
+                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         autoComplete="off"
@@ -55,12 +58,13 @@ const SigninForm = (props) => {
                         value={formData.password}
                         name="password"
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div>
-                    <button>Log In</button>
+                <div className="signin-form-buttons">
+                    <button className="signin-form-login">Log In</button>
                     <Link to="/">
-                        <button>Cancel</button>
+                        <button className="signin-form-cancel">Cancel</button>
                     </Link>
                 </div>
             </form>

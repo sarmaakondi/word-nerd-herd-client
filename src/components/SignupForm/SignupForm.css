@@ -1,0 +1,71 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.signup-container h1 {
+    font-weight: 500;
+}
+
+.signup-form-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form-fields label {
+    margin-bottom: 4px;
+}
+
+.signup-form-fields input {
+    width: 300px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-family: inherit;
+    margin-bottom: 16px;
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+.signup-form-fields input:focus {
+    box-shadow: 0px 0px 8px hsla(249, 57%, 53%, 0.5);
+}
+
+.signup-form-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.signup-form-signup,
+.signup-form-cancel {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.signup-form-signup {
+    background-color: hsl(249, 57%, 53%);
+    color: #fff;
+}
+
+.signup-form-cancel {
+    background-color: hsl(0, 0%, 85%);
+}
+
+.signup-form-signup:active,
+.signup-form-cancel:active {
+    transform: scale(0.98);
+}

@@ -69,16 +69,30 @@ const App = () => {
     return (
         <>
             <AuthedUserContext.Provider value={user}>
-                <NavBar
-                    user={user}
-                    handleSignout={handleSignout}
-                    handleCategory={handleCategory}
-                />
+                {user ? (
+                    <NavBar
+                        user={user}
+                        handleSignout={handleSignout}
+                        handleCategory={handleCategory}
+                    />
+                ) : (
+                    ""
+                )}
                 <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <NavBar
+                                user={user}
+                                handleSignout={handleSignout}
+                                handleCategory={handleCategory}
+                            />
+                        }
+                    />
                     {user ? (
                         <>
                             <Route
-                                path="/"
+                                path="/dashboard"
                                 element={
                                     <Dashboard
                                         user={user}
