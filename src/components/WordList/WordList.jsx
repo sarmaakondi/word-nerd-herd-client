@@ -29,7 +29,16 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
     };
 
     return (
-        <div className="container">
+        <div className="wordlist-container">
+            <div className="dashboard-statistics dashboard-card user-progress">
+                <li>
+                    {location.pathname.includes("/words")
+                        ? "Learn New Words"
+                        : location.pathname.includes("learnedWords")
+                        ? "Learned Words"
+                        : "Favortied Words"}
+                </li>
+            </div>
             <div
                 className="card-stack"
                 style={{ position: "relative", height: "500px" }}>
@@ -42,15 +51,15 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
                             }`}
                             initial={{
                                 scale: 0.8,
-                                y: 30 * (cards.length - index - 1),
+                                y: 40 * (cards.length - index - 1),
                             }}
                             animate={{
                                 scale: 1,
-                                y: 30 * (cards.length - index - 1),
+                                y: 40 * (cards.length - index - 1),
                             }}
                             exit={{
                                 scale: 0.8,
-                                y: 30 * (cards.length - index - 1),
+                                y: 40 * (cards.length - index - 1),
                             }}
                             transition={{
                                 type: "spring",
@@ -61,32 +70,28 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
                                 zIndex: index,
                             }}
                             onClick={() => bringToFront(index)}>
-                            <div>
+                            <div className="wordlist-fav-container">
                                 <h2>{card.word}</h2>
-                                {user !== null && (
-                                    <i
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleFavoritedWord(card._id);
-                                        }}
-                                        style={{
-                                            marginLeft: "20px",
-                                            fontSize: "24px",
-                                            cursor: "pointer",
-                                        }}
-                                        className="fa-regular fa-heart"></i>
-                                )}
-                                <Link to={`/words/${card._id}`}>
-                                    <button
-                                        style={{ marginLeft: "20px" }}
-                                        onClick={(event) =>
-                                            handleClick(card._id, event)
-                                        }>
-                                        Learn More
-                                    </button>
-                                </Link>
-                                <p>{card.meaning}</p>
+                                <div className="wordlist-fav-child-container">
+                                    {user !== null && (
+                                        <i
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleFavoritedWord(card._id);
+                                            }}
+                                            className="fa-solid fa-heart"></i>
+                                    )}
+                                    <Link to={`/words/${card._id}`}>
+                                        <button
+                                            onClick={(event) =>
+                                                handleClick(card._id, event)
+                                            }>
+                                            Learn More
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
+                            <p>{card.meaning}</p>
                         </motion.div>
                     ))}
                 </AnimatePresence>

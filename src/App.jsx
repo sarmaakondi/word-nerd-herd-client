@@ -92,6 +92,7 @@ const App = () => {
                                 element={
                                     <WordList
                                         wordList={wordList}
+                                        favoritedWord={favoritedWord}
                                         handleFavoritedWord={
                                             handleFavoritedWord
                                         }
@@ -116,6 +117,7 @@ const App = () => {
                                             handleFavoritedWord
                                         }
                                         checkLearnedWord={checkLearnedWord}
+                                        favoritedWord={favoritedWord}
                                     />
                                 }></Route>
                             <Route
