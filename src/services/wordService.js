@@ -70,6 +70,27 @@ const deleteFavoriteWord = async (id) => {
     } catch (error) {
         console.error(error);
     }
-}; 
+};
 
-export { index, show, create, createFavoriteWord, deleteFavoriteWord };
+const checkFavoriteWord = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/favoritedWords" + "/" + id, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export {
+    index,
+    show,
+    create,
+    createFavoriteWord,
+    deleteFavoriteWord,
+    checkFavoriteWord,
+};

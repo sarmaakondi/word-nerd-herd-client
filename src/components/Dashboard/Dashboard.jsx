@@ -22,9 +22,9 @@ const Dashboard = ({ category }) => {
         setLearnedWord(true);
     };
 
-    const handleFavoritedWord = async (wordId, isFavorited) => {
-        if (isFavorited === undefined) {
-            console.log(favoritedWord)
+    const handleFavoritedWord = async (wordId) => {
+        const isFavorited = await wordService.checkFavoriteWord(wordId);
+        if (isFavorited.length === 0) {
             await wordService.createFavoriteWord(wordId);
             setFavoritedWord(!favoritedWord);
         } else {
@@ -52,12 +52,10 @@ const Dashboard = ({ category }) => {
                                 wordList={wordList}
                                 handleFavoritedWord={handleFavoritedWord}
                             />
-                        }
-                    ></Route>
+                        }></Route>
                     <Route
                         path="/learnedWords"
-                        element={<WordList wordList={wordList} />}
-                    ></Route>
+                        element={<WordList wordList={wordList} />}></Route>
                     <Route
                         path="/favoritedWords"
                         element={
@@ -65,8 +63,7 @@ const Dashboard = ({ category }) => {
                                 wordList={wordList}
                                 handleFavoritedWord={handleFavoritedWord}
                             />
-                        }
-                    ></Route>
+                        }></Route>
                     <Route
                         path="/words/:wordId"
                         element={
@@ -74,19 +71,16 @@ const Dashboard = ({ category }) => {
                                 wordList={wordList}
                                 handleLearnedWord={handleLearnedWord}
                             />
-                        }
-                    ></Route>
+                        }></Route>
                 </Routes>
             ) : (
                 <Routes>
                     <Route
                         path="/words"
-                        element={<WordList wordList={wordList} />}
-                    ></Route>
+                        element={<WordList wordList={wordList} />}></Route>
                     <Route
                         path="/words/:wordId"
-                        element={<WordDetails wordList={wordList} />}
-                    ></Route>
+                        element={<WordDetails wordList={wordList} />}></Route>
                 </Routes>
             )}
         </main>

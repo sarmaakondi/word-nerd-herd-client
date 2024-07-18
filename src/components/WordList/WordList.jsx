@@ -11,16 +11,13 @@ const WordList = ({ wordList, handleFavoritedWord }) => {
                 {user !== null ? (
                     <>
                         <i
-                            onClick={() =>
-                                handleFavoritedWord(item._id, item.isFavorited)
-                            }
+                            onClick={() => handleFavoritedWord(item._id)}
                             style={{
                                 marginLeft: "20px",
                                 fontSize: "24px",
                                 cursor: "pointer",
                             }}
-                            className="fa-regular fa-heart"
-                        ></i>
+                            className="fa-regular fa-heart"></i>
                     </>
                 ) : (
                     ""
