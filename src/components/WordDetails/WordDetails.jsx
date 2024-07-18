@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
@@ -6,6 +6,7 @@ import "./WordDetails.css";
 
 const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     const user = useContext(AuthedUserContext);
+    const navigate = useNavigate();
     const { wordId } = useParams();
     const currentWordDetails = wordList.words.filter(
         (word) => word._id === wordId
@@ -66,7 +67,6 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
             <div className="word-details-card">
                 <li>
                     <>
-                        {/* <h1>{item.word}</h1> */}
                         <h3>
                             Meaning:{" "}
                             <span className="meaning">
@@ -83,14 +83,12 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
                             <div className="word-details-speech">
                                 <i
                                     className="fa-solid fa-volume-low"
-                                    onClick={() => readAloud(item.word)}
-                                ></i>
+                                    onClick={() => readAloud(item.word)}></i>
                                 <i
                                     className="fa-solid fa-microphone"
                                     onClick={() =>
                                         checkPronunciation(item.word)
-                                    }
-                                ></i>
+                                    }></i>
                             </div>
                             <div className="learned-button-container">
                                 {user !== null &&
@@ -101,8 +99,7 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
                                             className="learn-button"
                                             onClick={() =>
                                                 handleLearnedWord(item._id)
-                                            }
-                                        >
+                                            }>
                                             Mark as Learned
                                         </button>
                                     </>
@@ -116,7 +113,23 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
             </div>
         </div>
     ));
-    return <ul>{wordListItems}</ul>;
+    return (
+        <div className="word-details-parent-container">
+            <nav>
+                <ul>
+                    <div className="navbar-card navbar-header">
+                        <div className="navbar-user">
+                            <li>Hi, Stranger 👋</li>
+                            <li onClick={() => navigate(-1)}>
+                                <i className="fa-solid fa-arrow-left"></i>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+            <ul>{wordListItems}</ul>
+        </div>
+    );
 };
 
 export default WordDetails;

@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { motion, AnimatePresence } from "framer-motion";
-
-import NavBar from "../NavBar/NavBar";
 
 import "./WordList.css";
 
 const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
     const user = useContext(AuthedUserContext);
     const location = useLocation();
+    const navigate = useNavigate();
     const [cards, setCards] = useState([]);
 
     useEffect(() => {
@@ -32,7 +31,18 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
 
     return (
         <>
-            <NavBar />
+            <nav>
+                <ul>
+                    <div className="navbar-card navbar-header">
+                        <div className="navbar-user">
+                            <li>Hi, Stranger 👋</li>
+                            <li onClick={() => navigate(-1)}>
+                                <i className="fa-solid fa-arrow-left"></i>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
             <div className="wordlist-container">
                 <div className="dashboard-statistics dashboard-card user-progress">
                     <li>
