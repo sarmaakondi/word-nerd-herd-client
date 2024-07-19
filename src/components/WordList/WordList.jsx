@@ -31,18 +31,23 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
 
     return (
         <>
-            <nav>
-                <ul>
-                    <div className="navbar-card navbar-header">
-                        <div className="navbar-user">
-                            <li>Hi, Stranger 👋</li>
-                            <li onClick={() => navigate(-1)}>
-                                <i className="fa-solid fa-arrow-left"></i>
-                            </li>
+            {user ? (
+                ""
+            ) : (
+                <nav>
+                    <ul>
+                        <div className="navbar-card navbar-header">
+                            <div className="navbar-user">
+                                <li>Hi, Stranger 👋</li>
+                                <li onClick={() => navigate(-1)}>
+                                    <i className="fa-solid fa-arrow-left"></i>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
+            )}
+
             <div className="wordlist-container">
                 <div className="dashboard-statistics dashboard-card user-progress">
                     <li>
@@ -85,7 +90,10 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
                                 }}
                                 onClick={() => bringToFront(index)}>
                                 <div className="wordlist-fav-container">
-                                    <h2>{card.word}</h2>
+                                    <h2>
+                                        {card.word[0].toUpperCase() +
+                                            card.word.slice(1).toLowerCase()}
+                                    </h2>
                                     <div className="wordlist-fav-child-container">
                                         {user !== null && (
                                             <i
@@ -107,7 +115,10 @@ const WordList = ({ wordList, handleFavoritedWord, checkLearnedWord }) => {
                                         </Link>
                                     </div>
                                 </div>
-                                <p>{card.meaning}</p>
+                                <p>
+                                    {card.meaning[0].toUpperCase() +
+                                        card.meaning.slice(1).toLowerCase()}
+                                </p>
                             </motion.div>
                         ))}
                     </AnimatePresence>

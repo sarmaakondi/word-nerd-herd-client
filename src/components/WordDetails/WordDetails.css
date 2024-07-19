@@ -34,11 +34,12 @@
 
 .word-details-card p {
     margin-bottom: 16px;
+    font-size: 18px;
 }
 
 .meaning {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .fa-volume-low,

@@ -77,7 +77,10 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
 
                         <h3>Examples:</h3>
                         {item.examples.map((example, index) => (
-                            <p key={index}>{example}</p>
+                            <p key={index}>
+                                {example[0].toUpperCase() +
+                                    example.slice(1).toLowerCase()}
+                            </p>
                         ))}
                         <div className="word-details-icon-container">
                             <div className="word-details-speech">
@@ -97,9 +100,10 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
                                     <>
                                         <button
                                             className="learn-button"
-                                            onClick={() =>
-                                                handleLearnedWord(item._id)
-                                            }>
+                                            onClick={() => {
+                                                handleLearnedWord(item._id);
+                                                navigate(-1);
+                                            }}>
                                             Mark as Learned
                                         </button>
                                     </>
@@ -115,18 +119,23 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     ));
     return (
         <div className="word-details-parent-container">
-            <nav>
-                <ul>
-                    <div className="navbar-card navbar-header">
-                        <div className="navbar-user">
-                            <li>Hi, Stranger 👋</li>
-                            <li onClick={() => navigate(-1)}>
-                                <i className="fa-solid fa-arrow-left"></i>
-                            </li>
+            {user ? (
+                ""
+            ) : (
+                <nav>
+                    <ul>
+                        <div className="navbar-card navbar-header">
+                            <div className="navbar-user">
+                                <li>Hi, Stranger 👋</li>
+                                <li onClick={() => navigate(-1)}>
+                                    <i className="fa-solid fa-arrow-left"></i>
+                                </li>
+                            </div>
                         </div>
-                    </div>
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
+            )}
+
             <ul>{wordListItems}</ul>
         </div>
     );
