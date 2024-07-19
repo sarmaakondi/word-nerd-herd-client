@@ -100,6 +100,34 @@ const checkLearnedWord = async (id) => {
     }
 };
 
+const getLearnedWordsCount = async () => {
+    try {
+        const response = await fetch(BASE_URL + "/learnedWords/get/count", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const getFavoritedWordsCount = async () => {
+    try {
+        const response = await fetch(BASE_URL + "/favoritedWords/get/count", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json",
+            },
+        });
+        return response.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     index,
     show,
@@ -108,4 +136,6 @@ export {
     deleteFavoriteWord,
     checkFavoriteWord,
     checkLearnedWord,
+    getLearnedWordsCount,
+    getFavoritedWordsCount,
 };

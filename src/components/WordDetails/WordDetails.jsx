@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AuthedUserContext } from "../../App";
 import { useContext } from "react";
 
@@ -6,6 +6,7 @@ import "./WordDetails.css";
 
 const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     const user = useContext(AuthedUserContext);
+    const navigate = useNavigate();
     const { wordId } = useParams();
     const currentWordDetails = wordList.words.filter(
         (word) => word._id === wordId
@@ -58,48 +59,86 @@ const WordDetails = ({ wordList, handleLearnedWord, buttonState }) => {
     };
 
     const wordListItems = currentWordDetails.map((item) => (
-        <li key={item._id}>
-            <>
+        <div key={item._id} className="word-list-parent-container">
+            <div className="dashboard-statistics dashboard-card user-progress word">
                 <h1>{item.word}</h1>
-                <h3>Meaning:</h3>
-                <p>{item.meaning}</p>
-                <h3>Examples:</h3>
-                {item.examples.map((example, index) => (
-                    <p key={index}>{example}</p>
-                ))}
-                <i
-                    style={{
-                        marginLeft: "20px",
-                        fontSize: "24px",
-                        cursor: "pointer",
-                    }}
-                    className="fa-solid fa-volume-low"
-                    onClick={() => readAloud(item.word)}></i>
-                <i
-                    style={{
-                        marginLeft: "20px",
-                        fontSize: "24px",
-                        cursor: "pointer",
-                    }}
-                    className="fa-solid fa-microphone"
-                    onClick={() => checkPronunciation(item.word)}></i>
-                {user !== null &&
-                item.isLearning === undefined &&
-                buttonState === 0 ? (
+            </div>
+
+            <div className="word-details-card">
+                <li>
                     <>
-                        <button
-                            onClick={() => handleLearnedWord(item._id)}
-                            style={{ marginLeft: "20px" }}>
-                            Mark as Learned
-                        </button>
+                        <h3>
+                            Meaning:{" "}
+                            <span className="meaning">
+                                {item.meaning[0].toUpperCase() +
+                                    item.meaning.slice(1).toLowerCase()}
+                            </span>
+                        </h3>
+
+                        <h3>Examples:</h3>
+                        {item.examples.map((example, index) => (
+                            <p key={index}>
+                                {example[0].toUpperCase() +
+                                    example.slice(1).toLowerCase()}
+                            </p>
+                        ))}
+                        <div className="word-details-icon-container">
+                            <div className="word-details-speech">
+                                <i
+                                    className="fa-solid fa-volume-low"
+                                    onClick={() => readAloud(item.word)}></i>
+                                <i
+                                    className="fa-solid fa-microphone"
+                                    onClick={() =>
+                                        checkPronunciation(item.word)
+                                    }></i>
+                            </div>
+                            <div className="learned-button-container">
+                                {user !== null &&
+                                item.isLearning === undefined &&
+                                buttonState === 0 ? (
+                                    <>
+                                        <button
+                                            className="learn-button"
+                                            onClick={() => {
+                                                handleLearnedWord(item._id);
+                                                navigate(-1);
+                                            }}>
+                                            Mark as Learned
+                                        </button>
+                                    </>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                        </div>
                     </>
-                ) : (
-                    ""
-                )}
-            </>
-        </li>
+                </li>
+            </div>
+        </div>
     ));
-    return <ul>{wordListItems}</ul>;
+    return (
+        <div className="word-details-parent-container">
+            {user ? (
+                ""
+            ) : (
+                <nav>
+                    <ul>
+                        <div className="navbar-card navbar-header">
+                            <div className="navbar-user">
+                                <li>Hi, Stranger 👋</li>
+                                <li onClick={() => navigate(-1)}>
+                                    <i className="fa-solid fa-arrow-left"></i>
+                                </li>
+                            </div>
+                        </div>
+                    </ul>
+                </nav>
+            )}
+
+            <ul>{wordListItems}</ul>
+        </div>
+    );
 };
 
 export default WordDetails;

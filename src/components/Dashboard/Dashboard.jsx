@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import * as wordService from "../../services/wordService";
 
 import "./Dashboard.css";
 
@@ -9,9 +12,26 @@ const appendObject = {
 };
 
 const Dashboard = ({ handleCategory }) => {
+    const [learnedWordCount, setLearnedWordsCount] = useState(0);
+    const [favoritedWordCount, setFavoritedWordCount] = useState(0);
+
     const handleClick = (event) => {
         handleCategory(event.currentTarget.getAttribute("href"));
     };
+
+    useEffect(() => {
+        const fetchLearnedWordsCount = async () => {
+            const response = await wordService.getLearnedWordsCount();
+            setLearnedWordsCount(response["count"]);
+        };
+
+        const fetchFavoritedWordsCount = async () => {
+            const response = await wordService.getFavoritedWordsCount();
+            setFavoritedWordCount(response["count"]);
+        };
+        fetchLearnedWordsCount();
+        fetchFavoritedWordsCount();
+    }, []);
 
     return (
         <nav>
@@ -27,7 +47,7 @@ const Dashboard = ({ handleCategory }) => {
                             Learn New Words
                         </Link>
                     </li>
-                    <li className="dashboard-word-stats">10 words</li>
+                    <li className="dashboard-word-stats">5 words</li>
                 </div>
                 <div className="dashboard-card">
                     <li>
@@ -46,7 +66,9 @@ const Dashboard = ({ handleCategory }) => {
                             Explore Learned Words
                         </Link>
                     </li>
-                    <li className="dashboard-word-stats">156 words</li>
+                    <li className="dashboard-word-stats">
+                        {learnedWordCount} words
+                    </li>
                 </div>
                 <div className="dashboard-card">
                     <li>
@@ -65,7 +87,9 @@ const Dashboard = ({ handleCategory }) => {
                             Explore Favorited Words
                         </Link>
                     </li>
-                    <li className="dashboard-word-stats">22 words</li>
+                    <li className="dashboard-word-stats">
+                        {favoritedWordCount} words
+                    </li>
                 </div>
             </ul>
         </nav>

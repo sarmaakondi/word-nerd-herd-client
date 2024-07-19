@@ -1,0 +1,108 @@
+.word-details-parent-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.word-details-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 700px;
+    height: fit-content;
+    padding: 20px;
+    font-size: 20px;
+    background-color: hsl(249, 57%, 58%);
+    transition: all 0.3s;
+    color: #fff;
+
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.word-details-card li {
+    list-style: none;
+}
+
+.word-details-card h3 {
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+
+.word-details-card p {
+    margin-bottom: 16px;
+    font-size: 18px;
+}
+
+.meaning {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.fa-volume-low,
+.fa-microphone {
+    font-size: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    background-color: white;
+    color: #1a1a1a;
+    padding: 4px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.fa-volume-low:hover,
+.fa-microphone:hover {
+    transform: scale(1.1);
+}
+.learn-button {
+    font-family: inherit;
+    font-size: 16px;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+.learn-button:hover {
+    transform: scale(1.05);
+}
+
+.word-details-icon-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-left: 6px;
+}
+
+.word-details-speech {
+    display: flex;
+    gap: 42px;
+}
+
+.learned-button-container {
+    padding-right: 12px;
+}
+
+.word-list-parent-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.word {
+    height: 80px;
+    text-align: center;
+    text-transform: uppercase;
+}
