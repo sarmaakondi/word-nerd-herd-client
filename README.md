@@ -2,7 +2,7 @@
 
 **World of Words** is an app designed to teach the user new words. The app is built using an API that has access to over **_13,000_** words. Users are able to ask the app to read each word aloud to them as well as speaking the word back to them to check their pronunciation. Each word inlcudes a definition as well as examples of the words used in a sentence.
 
-![an screenshot of World of Words Dashboard](/public/WoW.png)
+![an screenshot of World of Words Dashboard](/public/Wow.png)
 
 ## How it works
 
